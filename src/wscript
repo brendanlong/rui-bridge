@@ -3,15 +3,17 @@
 def build(bld):
 	prog = bld(features='cc cprogram')
 	# symbolic name used to reference this object
-	prog.name = 'hello-gtk.program'
+	prog.name = 'rui-bridge.program'
 	# name of the resulting program
-	prog.target = 'hello-gtk'
-	prog.source = 'hello-gtk.vala'
+	prog.target = 'rui-bridge'
+	prog.source = 'rui-bridge.vala'
 	# libraries to link against
-	prog.uselib = 'GTK+'
+	prog.uselib = ['GUPNP', 'GSSDP']
 	# Vala packages to use
-	prog.packages = 'gtk+-2.0'
+	prog.packages = 'gupnp-1.0'
 	# Extra vapi dirs
-	#prog.vapi_dirs = '../my_lib'
+	prog.vapi_dirs = '../vapi'
 	# Enable threading
 	#prog.threading = True
+	# Turn off worthless warnings from the C compiler
+	prog.cflags = '-w'

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-VERSION = "0.0.4"
+VERSION = "0.0.1"
 VERSION_MAJOR_MINOR =  ".".join(VERSION.split(".")[0:2])
-APPNAME = "waf-vala-template"
+APPNAME = "rui-bridge"
 
 srcdir = '.'
 blddir = '_build_'
@@ -13,13 +13,16 @@ def set_options(opt):
 
 def configure(conf):
     conf.check_tool('compiler_cc vala gnu_dirs')
+    conf.check(features='cc', cflags=['-w'])
 
     conf.check_cfg(package='glib-2.0', uselib_store='GLIB',
             atleast_version='2.14.0', mandatory=True, args='--cflags --libs')
     conf.check_cfg(package='gobject-2.0', uselib_store='GOBJECT',
             atleast_version='2.14.0', mandatory=True, args='--cflags --libs')
-    conf.check_cfg(package='gtk+-2.0', uselib_store='GTK+',
-            atleast_version='2.10.0', mandatory=True, args='--cflags --libs')
+    conf.check_cfg(package='gssdp-1.0', uselib_store='GSSDP',
+            atleast_version='0.14.7', mandatory=True, args='--cflags --libs')
+    conf.check_cfg(package='gupnp-1.0', uselib_store='GUPNP',
+            atleast_version='0.20.10', mandatory=True, args='--cflags --libs')
 
     conf.define('PACKAGE', APPNAME)
     conf.define('PACKAGE_NAME', APPNAME)
@@ -31,5 +34,4 @@ def configure(conf):
 
 def build(bld):
     bld.add_subdirs('src')
-    bld.add_subdirs('my_lib')
 
